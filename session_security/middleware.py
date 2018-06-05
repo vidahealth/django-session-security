@@ -25,7 +25,7 @@ except ImportError:  # Django < 1.10
     MiddlewareMixin = object
 
 from .utils import get_last_activity, set_last_activity
-from .settings import EXPIRE_AFTER, PASSIVE_URLS, PASSIVE_URL_NAMES
+from .settings import EXPIRE_AFTER, PASSIVE_URLS, PASSIVE_URL_NAMES, ALLOWED_URLS
 
 
 class SessionSecurityMiddleware(MiddlewareMixin):
@@ -49,6 +49,13 @@ class SessionSecurityMiddleware(MiddlewareMixin):
 
         return False
 
+    def is_allowed_path(self, request):
+        """"Should we allow activity on this URL/View."""
+        for path in ALLOWED_URLS:
+            if request.path.startswith(path):
+                return True
+        return False
+
     def get_expire_seconds(self, request):
         """Return time (in seconds) before the user should be logged out."""
         return EXPIRE_AFTER
@@ -62,6 +69,8 @@ class SessionSecurityMiddleware(MiddlewareMixin):
             is_authenticated = request.user.is_authenticated
 
         if not is_authenticated:
+            return
+        if not self.is_allowed_path():
             return
 
         now = datetime.now()

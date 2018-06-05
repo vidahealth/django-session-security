@@ -30,11 +30,13 @@ SESSION_SECURITY_INSECURE
 """
 from django.conf import settings
 
-__all__ = ['EXPIRE_AFTER', 'WARN_AFTER', 'PASSIVE_URLS']
+__all__ = ['EXPIRE_AFTER', 'WARN_AFTER', 'PASSIVE_URLS', 'ALLOWED_URLS']
 
 EXPIRE_AFTER = getattr(settings, 'SESSION_SECURITY_EXPIRE_AFTER', 600)
 
 WARN_AFTER = getattr(settings, 'SESSION_SECURITY_WARN_AFTER', 540)
+
+ALLOWED_URLS = getattr(settings, 'SESSION_SECURITY_ALLOWED_URLS', [])
 
 PASSIVE_URLS = getattr(settings, 'SESSION_SECURITY_PASSIVE_URLS', [])
 
