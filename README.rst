@@ -33,7 +33,9 @@ When the user loads a page, SessionSecurity middleware will set the last
 activity to now. The last activity is stored as datetime
 in ``request.session['_session_security']``. To avoid having the middleware
 update that last activity datetime for a URL, add the url to
-``settings.SESSION_SECURITY_PASSIVE_URLS``.
+``settings.SESSION_SECURITY_PASSIVE_URLS``. To avoid having the middleware
+logout the user when URL starts with a given string, add that string to
+``settings.SESSION_SECURITY_EXCLUDED_URLS``.
 
 When the user moves mouse, click, scroll or press a key, SessionSecurity will
 save the DateTime as a JavaScript attribute. It will send the number of seconds
