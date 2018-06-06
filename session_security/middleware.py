@@ -25,7 +25,7 @@ except ImportError:  # Django < 1.10
     MiddlewareMixin = object
 
 from .utils import get_last_activity, set_last_activity
-from .settings import EXPIRE_AFTER, PASSIVE_URLS, PASSIVE_URL_NAMES, EXCLUDED_URLS
+from .settings import EXPIRE_AFTER, PASSIVE_URLS, PASSIVE_URL_NAMES, ALLOWED_URLS
 
 
 class SessionSecurityMiddleware(MiddlewareMixin):
@@ -51,7 +51,7 @@ class SessionSecurityMiddleware(MiddlewareMixin):
 
     def is_allowed_path(self, request):
         """"Should we allow activity on this URL/View."""
-        for path in EXCLUDED_URLS:
+        for path in ALLOWED_URLS:
             if request.path.startswith(path):
                 return True
         return False

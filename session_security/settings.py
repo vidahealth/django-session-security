@@ -22,9 +22,9 @@ PASSIVE_URL_NAMES
     thus cannot be described statically. NOTE: currently namespaces are not
     handled. Overridable in ``settings.SESSION_SECURITY_PASSIVE_URL_NAMES``.
 
-EXCLUDED_URLS
-    If the URL of the request starts with any of the strings in EXCLUDED_URLS,
-    avoid logout. For example, this can be used to limit session security only
+ALLOWED_URLS
+    Permit logout only if the URL of the request starts with any of the strings in
+    ALLOWED_URLS. For example, this can be used to limit session security only
     to admins by adding /admin/ to this list.
 
 SESSION_SECURITY_INSECURE
@@ -35,13 +35,13 @@ SESSION_SECURITY_INSECURE
 """
 from django.conf import settings
 
-__all__ = ['EXPIRE_AFTER', 'WARN_AFTER', 'PASSIVE_URLS', 'EXCLUDED_URLS']
+__all__ = ['EXPIRE_AFTER', 'WARN_AFTER', 'PASSIVE_URLS', 'ALLOWED_URLS']
 
 EXPIRE_AFTER = getattr(settings, 'SESSION_SECURITY_EXPIRE_AFTER', 600)
 
 WARN_AFTER = getattr(settings, 'SESSION_SECURITY_WARN_AFTER', 540)
 
-EXCLUDED_URLS = getattr(settings, 'SESSION_SECURITY_EXCLUDED_URLS', [])
+ALLOWED_URLS = getattr(settings, 'SESSION_SECURITY_ALLOWED_URLS', [])
 
 PASSIVE_URLS = getattr(settings, 'SESSION_SECURITY_PASSIVE_URLS', [])
 
