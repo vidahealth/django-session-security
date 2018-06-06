@@ -70,7 +70,7 @@ class SessionSecurityMiddleware(MiddlewareMixin):
 
         if not is_authenticated:
             return
-        if not self.is_allowed_path():
+        if not self.is_allowed_path(request):
             return
 
         now = datetime.now()
